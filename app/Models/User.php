@@ -4,12 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Psikolog;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -24,6 +26,7 @@ class User extends Authenticatable
         'password',
         'phone_number',
         'birthdate',
+        'role',
     ];
 
     /**
@@ -49,5 +52,10 @@ class User extends Authenticatable
             Psikolog::class,
             'request_consultations'
         )->withPivot(['consultation_date', 'consultation_time']);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->role == 'Admin';
     }
 }
