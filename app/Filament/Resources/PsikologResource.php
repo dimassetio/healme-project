@@ -3,8 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PsikologResource\Pages;
-use App\Filament\Resources\PsikologResource\RelationManagers;
-use App\Mail\KonfirmasiPsikolog;
 use App\Mail\EmailPsikolog;
 use App\Models\Psikolog;
 use Filament\Forms;
@@ -13,8 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Log;
 
 class PsikologResource extends Resource
 {
@@ -27,23 +24,23 @@ class PsikologResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                ->required(),
-            Forms\Components\TextInput::make('email')
-                ->required()
-                ->email(),
-            Forms\Components\TextInput::make('phone_number'),
-            Forms\Components\DatePicker::make('birthdate'),
-            Forms\Components\TextInput::make('code_psikolog'),
-            Forms\Components\TextInput::make('last_education'),
-            Forms\Components\FileUpload::make('profile_photo'),
-            Forms\Components\TextInput::make('specialization_therapy'),
-            Forms\Components\TextInput::make('service_cost_perhour'),
-            Forms\Components\Select::make('status_account')
-                ->options([
-                    'pending' => 'Pending',
-                    'active' => 'Active',
-                ])
-                ->required(),
+                    ->required(),
+                Forms\Components\TextInput::make('email')
+                    ->required()
+                    ->email(),
+                Forms\Components\TextInput::make('phone_number'),
+                Forms\Components\DatePicker::make('birthdate'),
+                Forms\Components\TextInput::make('code_psikolog'),
+                Forms\Components\TextInput::make('last_education'),
+                Forms\Components\FileUpload::make('profile_photo'),
+                Forms\Components\TextInput::make('specialization_therapy'),
+                Forms\Components\TextInput::make('service_cost_perhour'),
+                Forms\Components\Select::make('status_account')
+                    ->options([
+                        'Pending' => 'Pending',
+                        'Active' => 'Active',
+                    ])
+                    ->required(),
             ]);
     }
 
@@ -106,12 +103,15 @@ class PsikologResource extends Resource
 
     public static function afterSave($record)
     {
+        Log::debug("RUN AFTER SAVE");
         if ($record->wasChanged('status_account')) {
+            Log::debug("RUN STATUS CHANGED");
             $message = 'Berikut adalah kode psikolog anda: ' . $record->code_psikolog;
             $subject = 'Pemberitahuan Konfirmasi Registrasi Psikolog HealMe';
 
-            Mail::to($record->email)->send(new KonfirmasiPsikolog($message, $subject));
-
+            Mail::to($record->email)->send(new EmailPsikolog($message, $subject));
+            Log::debug("Mail to ran");
         }
+        Log::debug("Done");
     }
 }

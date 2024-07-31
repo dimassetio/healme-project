@@ -68,7 +68,8 @@ class PsikologController extends Controller
         );
     }
 
-    public function psikologProfile(Psikolog $psikolog){
+    public function psikologProfile(Psikolog $psikolog)
+    {
         return view('app.feature.psikolog.psikolog-detail', compact('psikolog'));
     }
 
@@ -124,13 +125,9 @@ class PsikologController extends Controller
                 'code_psikolog' => $uniqueCode,
                 'last_education' => $request->validated()['last_education'],
                 'profile_photo' => $path,
-                'specialization_therapy' => $request->validated()[
-                    'specialization_therapy'
-                ],
-                'service_cost_perhour' => $request->validated()[
-                    'service_cost_perhour'
-                ],
-                'status_account' => 'pending',
+                'specialization_therapy' => $request->validated()['specialization_therapy'],
+                'service_cost_perhour' => $request->validated()['service_cost_perhour'],
+                'status_account' => 'Pending',
             ]);
 
             $this->sendEmail($request->validated()['email']);
