@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply w-screen overflow-x-hidden;
+}
+
+@layer components {
+    .accordion-header {
+        @apply py-4 px-6 cursor-pointer;
+    }
+
+    .accordion-header.active svg {
+        @apply transition ease-in-out duration-300;
+        transform: rotateY(180deg);
+    }
+
+    .accordion-body {
+        @apply max-h-0 overflow-hidden transition-all duration-200 ease-out;
+    }
+
+    .button-group a.active {
+        @apply bg-[#121481];
+    }
+}
