@@ -27,10 +27,8 @@
                         @foreach ($psikologs as $psikolog)
                             {{-- item 1 --}}
                             <div class="w-[400px] rounded-2xl pt-5 pb-4 px-5 shadow-xl border">
-                                <div
-                                    class="w-[180px] h-[180px] mx-auto overflow-hidden rounded-full border-2 border-slate-300">
-                                    <img class="block object-fill mx-auto border rounded-md"
-                                        src="{{ Storage::url($psikolog->profile_photo) }}" alt="">
+                                <div class="w-[180px] h-[180px] mx-auto overflow-hidden rounded-full border-2 border-slate-300 relative">
+                                    <img class="absolute inset-0 w-full h-full object-cover" src="{{ Storage::url($psikolog->profile_photo) }}" alt="">
                                 </div>
 
                                 <div class="w-auto columns-2 flex items-start">
@@ -47,7 +45,7 @@
                                     <div>
                                         <img class="inline-block -mt-1" width="16"
                                             src="{{ asset('assets/img/homePage/eclipse-green.png') }}" alt="">
-                                        <p class="inline-block ms-2 font-poppins-regular font-extralight">Available</p>
+                                        <p class="inline-block ms-2 font-poppins-regular font-extralight">{{ $psikolog->status_psikolog }}</p>
                                     </div>
                                 </div>
                                 <div class="pe-1">

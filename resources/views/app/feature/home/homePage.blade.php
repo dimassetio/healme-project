@@ -151,15 +151,12 @@
                             <div class="flex items-center">
                                 <img class="inline-block w-3" width="16" src="{{ asset('assets/img/homePage/eclipse-green.png') }}" alt="">
                                 <p class="inline-block ms-2 font-poppins-regular text-sm lg:text-base font-extralight">
-                                    {{ $doctor->availability }}</p>
+                                    {{ $doctor->status_psikolog }}</p>
                             </div>
                         </div>
                         <div class="w-auto lg:hidden columns-2 flex items-start">
                             <img class="block my-auto w-4 lg:w-auto" width="22" src="{{ asset('assets/img/homePage/star.png') }}" alt="">
                             <p class="ms-2 text-sm lg:text-base">5.0</p>
-                        </div>
-                        <div class="pe-1 mt-3 lg:my-3">
-                            <p class="font-roboto-regular text-[#42445D] text-sm lg:text-base">{{ $doctor->description }}</p>
                         </div>
                         <div class="mt-4 lg:mt-2 columns-2 flex justify-start">
                             <button class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-[#DDD3EF] to-[#C1E7FF] focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">

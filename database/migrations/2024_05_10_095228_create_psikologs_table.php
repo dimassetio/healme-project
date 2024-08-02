@@ -25,6 +25,7 @@ return new class extends Migration {
             $table->string('specialization_therapy')->nullable();
             $table->integer('service_cost_perhour')->nullable();
             $table->string('status_account')->default('Pending');
+            $table->string('status_psikolog')->default('Available');
             $table->timestamps();
         });
     }
